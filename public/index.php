@@ -10,7 +10,11 @@ $pdo = db();
 $search = trim($_GET['q'] ?? '');
 $sql = "SELECT p.* FROM products p WHERE p.is_active=1";
 $params = [];
-if ($search !== '') { $sql .= " AND (p.name LIKE :q OR p.description LIKE :q)"; $params[':q'] = "%$search%"; }
+if ($search !== '') { 
+  $sql .= " AND (p.name LIKE :q OR p.description LIKE :q2)"; 
+  $params[':q'] = "%$search%"; 
+  $params[':q2'] = "%$search%"; 
+}
 $sql .= " ORDER BY p.created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
