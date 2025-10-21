@@ -1,0 +1,86 @@
+/* Themeable, animated UI */
+:root{
+	color-scheme: light dark;
+	--accent:#1e88e5;
+	--bg:#f7f8fa;
+	--surface:#ffffff;
+	--border:#e5e7eb;
+	--text:#222222;
+	--muted:#6b7280;
+	--shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 10px rgba(0,0,0,0.04);
+}
+:root[data-theme="dark"], html[data-theme="dark"]{
+	--accent:#60a5fa;
+	--bg:#0f172a;
+	--surface:#111827;
+	--border:#1f2937;
+	--text:#e5e7eb;
+	--muted:#9ca3af;
+	--shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 16px rgba(0,0,0,0.35);
+}
+
+*{box-sizing:border-box}
+body{
+	margin:0;
+	font-family:system-ui,Segoe UI,Arial,sans-serif;
+	background:var(--bg);
+	color:var(--text);
+	transition: background-color .3s ease, color .3s ease;
+}
+header{
+	display:flex;justify-content:space-between;align-items:center;
+	padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);
+	transition: background-color .3s ease, border-color .3s ease;
+}
+header a{color:var(--text);text-decoration:none;margin-left:12px}
+.container{max-width:1000px;margin:20px auto;padding:0 16px}
+.search{display:flex;gap:8px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;color:inherit;text-decoration:none;box-shadow:var(--shadow);
+	transition: transform .2s ease, box-shadow .2s ease, background-color .3s ease, border-color .3s ease;
+}
+.card:hover{transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12)}
+.card img{display:block;width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:#0b0b0b10}
+.card-body{padding:12px}
+.price{font-weight:700;color:var(--accent)}
+.muted{color:var(--muted)}
+.product{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:var(--shadow);
+	transition: background-color .3s ease, border-color .3s ease;
+}
+@media (max-width:700px){.product{grid-template-columns:1fr}}
+.table{width:100%;border-collapse:collapse;background:var(--surface);transition: background-color .3s ease}
+.table th,.table td{border:1px solid var(--border);padding:10px}
+.table .right{text-align:right}
+.actions{margin-top:10px;display:flex;gap:8px}
+button,.btn{background:var(--accent);color:#fff;border:none;padding:9px 14px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block;
+	transition: filter .2s ease, transform .05s ease;
+}
+button:hover,.btn:hover{filter:brightness(1.06)}
+button:active,.btn:active{transform: scale(0.98)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.alert{background:#fff3cd22;border:1px solid #ffeeba44;padding:10px;border-radius:8px;margin-bottom:10px}
+.auth form{display:grid;gap:10px;background:var(--surface);border:1px solid var(--border);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+.checkbox{display:flex;align-items:center;gap:8px}
+img{max-width:100%}
+
+/* Theme toggle (single icon button) */
+.theme-btn{width:40px;height:40px;border-radius:9999px;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--text);border:1px solid var(--border);
+	transition: background-color .2s ease, border-color .2s ease, transform .05s ease; font-size:18px; line-height:1}
+.theme-btn:hover{background-color:rgba(127,127,127,0.08)}
+.theme-btn:active{transform:scale(0.98)}
+/* Icon is set via textContent by JS: 🌙 (light) / ☀️ (dark) */
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+.reveal{opacity:0;transform:translateY(8px)}
+.reveal.show{opacity:1;transform:none;transition:opacity .4s ease, transform .4s ease}
+.card.reveal{animation: fadeUp .5s ease both}
+.product.reveal{animation: scaleIn .4s ease both}
+.table.reveal tbody tr{opacity:0;transform:translateY(6px)}
+.table.reveal tbody tr.show{opacity:1;transform:none;transition:opacity .35s ease, transform .35s ease}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+	*{animation:none!important;transition:none!important}
+}

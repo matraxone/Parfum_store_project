@@ -1,0 +1,23 @@
+# Dependencies
+/vendor/
+
+# Local uploads/logs
+/uploads/
+/public/uploads/
+/mail.log
+
+# Composer artifacts
+composer-setup.php
+
+# IDE/editor
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Sensitive configs (if added later)
+.env
+*.local.php
+/src/email_config.json
